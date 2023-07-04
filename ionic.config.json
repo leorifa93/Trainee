@@ -1,0 +1,7 @@
+{
+  "name": "marius-fitline",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
