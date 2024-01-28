@@ -1,0 +1,102 @@
+<ion-header>
+  <ion-item color="none" lines="none">
+    <ion-icon slot="end" name="close-outline" class="ion-float-end" (click)="this.close()"></ion-icon>
+  </ion-item>
+</ion-header>
+
+<ion-content  class="ion-padding" [fullscreen]="true">
+  <div *ngIf="type === 'video'">
+    <h1 class="heading ion-text-center">Video bearbeiten</h1>
+    <ion-item lines="none" class="ion-item" color="none" style="margin-top: 7rem">
+      <fieldset  class="input-item">
+        <legend>Titel des Videos</legend>
+        <ion-input [(ngModel)]="title" placeholder="Titel"></ion-input>
+      </fieldset>
+    </ion-item>
+    <ion-grid>
+      <ion-row>
+        <ion-col>
+          <h3>Schreibe eine Beschreibung</h3>
+          <ion-textarea class="input-item" [autoGrow]="true" [rows]="5" [cols]="5" [(ngModel)]="text" placeholder="Schreibe eine Beschreibung"></ion-textarea>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+    <ion-item lines="none" color="none" *ngFor="let file of alreadyFilePaths;let x = index">
+      <a slot="start" (click)="downloadPDF('download', file)">PDF anzeigen</a>
+      <ion-icon slot="end" name="trash-outline" (click)="removeAlreadyPath(x)"></ion-icon>
+    </ion-item>
+    <p class="ion-text-center ion-margin" *ngFor="let pdfName of pdfFileName">PDF: {{pdfName}}</p>
+    <ion-button class="ion-margin-top" (click)="chooseFile()" expand="block">Datei auswählen</ion-button>
+  </div>
+
+  <div *ngIf="type === 'multiple_choice'">
+    <h1 class="heading ion-text-center">Multiple Choice bearbeiten</h1>
+
+    <ion-grid style="margin-top: 7rem">
+      <ion-row>
+        <ion-col>
+          <h3>Stelle eine Frage</h3>
+          <ion-textarea class="input-item" [autoGrow]="true" [rows]="5" [cols]="5" [(ngModel)]="title" placeholder="Stelle eine Frage"></ion-textarea>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>
+          <h3>Füge Antworten hinzu</h3>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>
+          <ion-item class="ion-no-padding" lines="none" color="none" *ngFor="let step of steps; let i = index">
+            <ion-toggle [(ngModel)]="step.isRightAnswer" slot="start" [checked]="step.isRightAnswer" (ionChange)="onSetRightAnswer(i)"></ion-toggle>
+            <fieldset  class="input-item">
+              <legend>Antwort {{i + 1}}:</legend>
+              <ion-input [(ngModel)]="step.question" type="text" placeholder="Antwort {{i + 1}}"></ion-input>
+            </fieldset>
+            <ion-icon *ngIf="i !== 0" slot="end" name="trash-outline" (click)="removeAnswer(i)"></ion-icon>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+    <ion-button expand="block" (click)="addAnswer()">Weitere Antwort hinzufügen</ion-button>
+  </div>
+
+  <div *ngIf="type === 'add_training'">
+    <h1 class="heading ion-text-center">Gib einen Titel an</h1>
+    <ion-item lines="none" class="ion-item" color="none" style="margin-top: 7rem">
+      <fieldset  class="input-item">
+        <legend>Titel des Textes</legend>
+        <ion-input [(ngModel)]="title" placeholder="Titel"></ion-input>
+      </fieldset>
+    </ion-item>
+    <ion-grid>
+      <ion-row>
+        <ion-col>
+          <h3>Gib eine Beschreibung an</h3>
+          <ion-textarea class="input-item" [autoGrow]="true" [rows]="5" [cols]="5" [(ngModel)]="description" placeholder="Schreibe einen Text"></ion-textarea>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </div>
+
+  <div *ngIf="type === 'text'">
+    <h1 class="heading ion-text-center">Gib einen Titel an</h1>
+    <ion-item lines="none" class="ion-item" color="none" style="margin-top: 7rem">
+      <fieldset  class="input-item">
+        <legend>Titel des Textes</legend>
+        <ion-input [(ngModel)]="title" placeholder="Titel"></ion-input>
+      </fieldset>
+    </ion-item>
+    <ion-grid>
+      <ion-row>
+        <ion-col>
+          <h3>Schreibe einen Text</h3>
+          <ion-textarea class="input-item" [autoGrow]="true" [rows]="5" [cols]="5" [(ngModel)]="text" placeholder="Schreibe einen Text"></ion-textarea>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </div>
+</ion-content>
+
+<ion-footer>
+  <ion-button class="ion-margin-top" (click)="save()" expand="block">Speichern</ion-button>
+</ion-footer>

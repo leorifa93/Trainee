@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "402607051555",
+    "project_id": "marius-fitline-4e2f8",
+    "storage_bucket": "marius-fitline-4e2f8.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:402607051555:android:110a491c45c42602753296",
+        "android_client_info": {
+          "package_name": "com.startyourfuture.startyourfuture"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "402607051555-8pl6k5oknhmcspddldafvm0pu1icm2jk.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDUpC9mwUacEC6iOdvMBRF0Biof5NAHMSM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "402607051555-8pl6k5oknhmcspddldafvm0pu1icm2jk.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "402607051555-985qnpj64pvc2b5eqt41jbqqhs15ahkj.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.startyourfuture.startyourfuture"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

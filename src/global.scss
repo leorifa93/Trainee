@@ -24,3 +24,72 @@
 @import "@ionic/angular/css/text-alignment.css";
 @import "@ionic/angular/css/text-transformation.css";
 @import "@ionic/angular/css/flex-utils.css";
+
+h1, h2, h3, h4, h5, h6, ion-card-title {
+  color: #004687;
+}
+
+body {
+  --ion-safe-area-top: 10px;
+
+  padding-top: constant(--safe-area-inset-top);
+  padding-top: env(--safe-area-inset-top);
+}
+
+.header-background {
+  backdrop-filter: unset;
+}
+
+li {
+  color: #bbbdbe;
+}
+
+ion-icon {
+  --ripple-color: #004687 !important;
+}
+
+ion-label {
+
+  p {
+    color: #bbbdbe !important;
+  }
+}
+
+ion-button {
+  --background: #004687;
+}
+
+.heading{
+  font-size: 32px;
+  font-weight: bold;
+  padding-left: 20px;
+  margin-top: 70px;
+  margin-bottom: -60px;
+}
+
+.para{
+  font-size: 22px;
+  font-weight: 500;
+  padding-left: 20px;
+  margin-bottom: 70px;
+  color: #bbbdbe;
+}
+
+.input-item{
+  padding-left: 20px;
+  width: 100%;
+  border-radius: 12px;
+  border: 2px solid #e2e2e2;
+  min-height: 70px;
+  ion-input{
+    margin-top: -12px;
+  }
+}
+.ion-item{
+  margin-top: 20px;
+}
+
+ion-icon[name=close-outline] {
+  font-size: 30px;
+  padding: 10px;
+}

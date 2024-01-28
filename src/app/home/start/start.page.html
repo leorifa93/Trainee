@@ -1,0 +1,20 @@
+<ion-content [fullscreen]="true" class="ion-padding">
+  <h1 class="heading">Trainingsübersicht</h1>
+  <div style="margin-top: 5rem">
+    <ion-card *ngFor="let training of trainings; let i = index" [hidden]="!training.steps">
+      <ion-card-header>
+        <ion-card-title class="ion-text-center ion-text-nowrap">{{training.title}}</ion-card-title>
+      </ion-card-header>
+      <ion-card-content class="ion-text-center">
+        {{training.description}}
+        <p class="absolved-process ion-text-nowrap">{{calculateProcess(training)}}%</p>
+        <p class="ion-text-center">Fortschritt</p>
+      </ion-card-content>
+      <ion-button expand="block" (click)="openTraining(i)" [disabled]="!isPreventTrainingComplete(i) && i > 0">
+        <p *ngIf="calculateProcess(training) === 0">Training beginnen</p>
+        <p *ngIf="calculateProcess(training) > 0 && calculateProcess(training) < 100">Training fortführen</p>
+        <p *ngIf="calculateProcess(training) === 100">Training neustarten</p>
+      </ion-button>
+    </ion-card>
+  </div>
+</ion-content>

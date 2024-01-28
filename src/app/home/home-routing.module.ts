@@ -6,6 +6,16 @@ const routes: Routes = [
   {
     path: '',
     component: HomePage,
+    children: [
+      {
+        path: 'start',
+        loadChildren: () => import('./start/start.module').then( m => m.StartPageModule)
+      },
+      {
+        path: 'menue',
+        loadChildren: () => import('./menue/menue.module').then( m => m.MenuePageModule)
+      }
+    ]
   }
 ];
 

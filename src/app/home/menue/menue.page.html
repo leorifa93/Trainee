@@ -1,0 +1,25 @@
+<ion-content class="ion-padding" [fullscreen]="true">
+  <h1>Menü</h1>
+
+  <div style="margin-top: 2rem">
+    <ion-label *ngIf="user">
+      <h3>{{user.fullName}}</h3>
+      <p>TP Nummer: {{user.tpNumber}}</p>
+    </ion-label>
+  </div>
+  <h3 class="heading ion-text-center" style="font-size: 25px">Willkommen in unserer TeamApp!</h3>
+  <p class="ion-text-center ion-margin-top" style="margin-top: 5rem"> Wir begleiten dich gerne auf deiner Reise zum Erfolg im Network Marketing. Unsere App bietet Ressourcen und Werkzeuge, um dich bestmöglich vorzubereiten und weiterzuentwickeln. Unser Team steht dir zur Seite, um dir bei den Grundlagen, erfolgreichen Strategien und persönlichen Zielen zu helfen. Hier findest du Schulungsmaterialien, Expertenschulungen und eine aktive Community. Nutze diese App, um dich optimal vorzubereiten und erfolgreich zu sein. Gemeinsam können wir zum Erfolg motivieren und führen. Glaube an dein Potenzial und baue ein blühendes Geschäft auf. Willkommen in unserem Team! Gemeinsam erreichen wir Großes!</p>
+</ion-content>
+
+<ion-footer>
+  <div class="ion-margin-bottom">
+    <ion-item color="none" (click)="navigate('/data-protection')">Datenschutz</ion-item>
+    <ion-item  color="none" (click)="navigate('/agb')">AGBs</ion-item>
+    <ion-item lines="none" color="none">
+      <ion-text color="danger" (click)="signOut()">Abmelden</ion-text>
+    </ion-item>
+    <ion-item lines="none" color="none">
+      <ion-text color="danger" (click)="removeAcc()">Account löschen</ion-text>
+    </ion-item>
+  </div>
+</ion-footer>

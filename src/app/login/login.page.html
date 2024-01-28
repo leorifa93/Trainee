@@ -1,0 +1,92 @@
+<ion-content [fullscreen]="true">
+
+  <!-- Login Page -->
+  <div class="container" *ngIf="screen === 'login'">
+    <h1 class="heading">Starte jetzt dein PM Business <br><br></h1>
+    <p class="para">Schritt für Schritt zu deinem Ziel</p>
+    <form [formGroup]="formData">
+      <ion-item lines="none" class="ion-item">
+        <fieldset  class="input-item">
+          <legend>E-Mail</legend>
+          <ion-input formControlName="email" type="email" placeholder="E-Mail"></ion-input>
+        </fieldset>
+      </ion-item>
+      <ion-item lines="none" class="ion-item">
+        <fieldset class="input-item">
+          <legend>Passwort</legend>
+          <ion-input formControlName="password" type="password" placeholder="Passwort"></ion-input>
+        </fieldset>
+      </ion-item>
+      <ion-text [color]="'danger'" *ngIf="isPasswordWrong" style="padding-left: 20px; padding-top: 5px">E-Mail oder Passwort ist falsch!</ion-text>
+      <p class="forget-text"><a (click)="changeState('forgotPassword')">Passwort vergessen?</a></p>
+      <p class="signup-text">Ich bin neu&nbsp;<a (click)="changeState('create')">Registrieren?</a></p>
+      <ion-button [disabled]="formData.invalid" class="login-button"  expand="block" (click)="login(formData)">
+        <p *ngIf="!isLoggingIn">Login</p>
+        <ion-spinner *ngIf="isLoggingIn"></ion-spinner>
+      </ion-button>
+    </form>
+  </div>
+
+  <!-- Sign up page -->
+  <div class="container" *ngIf="screen === 'create'">
+    <h1 class="heading">Erstelle jetzt deinen Account<br><br></h1>
+    <p class="para">und werde zum Profi in deinem Business</p>
+    <form [formGroup]="formRegistrationData">
+      <ion-item lines="none" class="ion-item">
+        <fieldset  class="input-item">
+          <legend>Voller Name</legend>
+          <ion-input formControlName="fullName"  type="text" placeholder="Voller Name"></ion-input>
+        </fieldset>
+      </ion-item>
+      <ion-item lines="none" class="ion-item">
+        <fieldset  class="input-item">
+          <legend>TP Nummer</legend>
+          <ion-input formControlName="tpNumber" type="number" placeholder="TP Nummer"></ion-input>
+        </fieldset>
+      </ion-item>
+      <ion-item lines="none" class="ion-item">
+        <fieldset class="input-item">
+          <legend>Handynummer (optional)</legend>
+          <ion-input formControlName="mobileNumber" type="number" placeholder="Handynummer"></ion-input>
+        </fieldset>
+      </ion-item>
+      <ion-item lines="none" class="ion-item">
+        <fieldset  class="input-item">
+          <legend>E-Mail</legend>
+          <ion-input formControlName="email" type="email" placeholder="E-Mail"></ion-input>
+        </fieldset>
+      </ion-item>
+      <ion-item lines="none" class="ion-item">
+        <fieldset  class="input-item">
+          <legend>Passwort</legend>
+          <ion-input formControlName="password" type="password" placeholder="Passwort"></ion-input>
+        </fieldset>
+      </ion-item>
+      <p class="signup-text">Ich bin bereits registriert&nbsp;<a (click)="changeState('login')">Login?</a></p>
+      <ion-button (click)="createUser(formRegistrationData)" [disabled]="formRegistrationData.invalid" class="login-button"  expand="block">
+        <p *ngIf="!isLoggingIn">Registrieren</p>
+        <ion-spinner *ngIf="isLoggingIn"></ion-spinner>
+      </ion-button>
+      <p class="ion-padding ion-text-center">Mit der Registrierung, stimmst du dem <a (click)="showPage('data-protection')">Datenschutz</a> und <a (click)="showPage('agb')">AGBs</a> zu</p>
+    </form>
+  </div>
+
+  <div class="container" *ngIf="screen === 'forgotPassword'">
+    <h1 class="heading">Forget Password?<br><br></h1>
+    <p class="para">Enter email to reset</p>
+    <ion-item lines="none" class="ion-item">
+      <fieldset  class="input-item">
+        <legend>Email Id</legend>
+        <ion-input type="email" placeholder="name@domain.com"></ion-input>
+      </fieldset>
+    </ion-item>
+    <p class="signup-text">Rememberd Password&nbsp;<a>Sign In?</a></p>
+    <ion-button class="login-button" expand="block">Reset Password</ion-button>
+  </div>
+
+
+</ion-content>
+<ion-footer color="white">
+  <ion-toolbar>
+  </ion-toolbar>
+</ion-footer>

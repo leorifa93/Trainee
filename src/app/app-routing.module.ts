@@ -8,9 +8,29 @@ const routes: Routes = [
   },
   {
     path: '',
-    redirectTo: 'home',
+    redirectTo: 'login',
     pathMatch: 'full'
   },
+  {
+    path: 'login',
+    loadChildren: () => import('./login/login.module').then( m => m.LoginPageModule)
+  },
+  {
+    path: 'admin-home',
+    loadChildren: () => import('./admin-home/admin-home.module').then( m => m.AdminHomePageModule)
+  },
+  {
+    path: 'training',
+    loadChildren: () => import('./_shared/pages/training/training.module').then( m => m.TrainingPageModule)
+  },
+  {
+    path: 'data-protection',
+    loadChildren: () => import('./home/menue/data-protection/data-protection.module').then( m => m.DataProtectionPageModule)
+  },
+  {
+    path: 'agb',
+    loadChildren: () => import('./home/menue/agb/agb.module').then( m => m.AgbPageModule)
+  }
 ];
 
 @NgModule({

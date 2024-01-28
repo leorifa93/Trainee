@@ -1,0 +1,126 @@
+<ion-content class="ion-padding" [fullscreen]="true">
+  <ion-refresher slot="fixed" (ionRefresh)="getAllSteps($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+  <ion-item lines="none">
+    <h1>Schritte</h1>
+
+    <ion-buttons slot="end">
+      <ion-button color="none" (click)="addStep('add_training', '', 0)">
+        <ion-icon name="add-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-item>
+
+  <ion-list class="ion-margin-top">
+
+  </ion-list>
+
+  <ion-list *ngIf="!loaded">
+    <ion-item class="ion-no-padding">
+      <h3>
+        <ion-skeleton-text [animated]="true" style="width: 100px"></ion-skeleton-text>
+      </h3>
+      <p>
+        <ion-skeleton-text [animated]="true" style="width: 200px"></ion-skeleton-text>
+      </p>
+    </ion-item>
+    <ion-item class="ion-no-padding">
+      <h3>
+        <ion-skeleton-text [animated]="true" style="width: 100px"></ion-skeleton-text>
+      </h3>
+      <p>
+        <ion-skeleton-text [animated]="true" style="width: 200px"></ion-skeleton-text>
+      </p>
+    </ion-item>
+    <ion-item class="ion-no-padding">
+      <h3>
+        <ion-skeleton-text [animated]="true" style="width: 100px"></ion-skeleton-text>
+      </h3>
+      <p>
+        <ion-skeleton-text [animated]="true" style="width: 200px"></ion-skeleton-text>
+      </p>
+    </ion-item>
+  </ion-list>
+
+  <ion-list>
+    <ion-accordion-group>
+      <ion-accordion *ngFor="let training of trainings; let i = index">
+        <ion-item slot="header">
+          <ion-label>{{training.title}}</ion-label>
+        </ion-item>
+        <div class="ion-padding" slot="content">
+          <ion-item lines="none">
+            <ion-label slot="start">Einstellungen:</ion-label>
+            <ion-buttons slot="end">
+              <ion-button color="none" (click)="showPreview(i)">
+                <ion-icon name="eye-outline"></ion-icon>
+              </ion-button>
+              <ion-button color="none" (click)="editTraining(training)">
+                <ion-icon name="pencil-outline"></ion-icon>
+              </ion-button>
+              <ion-button color="none" (click)="removeTraining(training.id!, i)">
+                <ion-icon name="trash-outline"></ion-icon>
+              </ion-button>
+            </ion-buttons>
+          </ion-item>
+          <ion-item lines="none">
+            <ion-label slot="start">Content anlegen:</ion-label>
+            <ion-buttons slot="end">
+              <ion-button color="none" (click)="addStep('video', training.id, i)">
+                <ion-icon name="easel-outline"></ion-icon>
+              </ion-button>
+              <ion-button color="none" (click)="addStep('multiple_choice', training.id, i)">
+                <ion-icon name="list-outline"></ion-icon>
+              </ion-button>
+              <ion-button color="none" (click)="addStep('text', training.id, i)">
+                <ion-icon name="document-text-outline"></ion-icon>
+              </ion-button>
+            </ion-buttons>
+          </ion-item>
+          <ion-reorder-group [disabled]="false" (ionItemReorder)="handleReorder($any($event), i)">
+            <div *ngFor="let step of training.steps; let x = index">
+              <ion-item *ngIf="step.type === 'video'">
+                <ion-icon slot="start" name="easel-outline" (click)="showActions(step.id, x,  i, step.type)"></ion-icon>
+                <ion-label (click)="showActions(step.id, x,  i, step.type)">
+                  <h3>Titel: {{step.title}}</h3>
+                  <p>Schritt: {{step.order}}</p>
+                  <p *ngIf="step.pdfFileUrl && step.pdfFileUrl.length > 0">PDF angehängt</p>
+                </ion-label>
+                <ion-reorder slot="end"></ion-reorder>
+              </ion-item>
+
+              <ion-item *ngIf="step.type === 'multiple_choice'">
+                <ion-icon slot="start" name="list-outline" (click)="showActions(step.id, x,  i, step.type)"></ion-icon>
+                <ion-label (click)="showActions(step.id, x,  i, step.type)">
+                  <h3 class="ion-text-wrap">Frage: {{step.title}}</h3>
+                  <ol>
+                    <li *ngFor="let question of step.questions">{{question.question}}
+                      ({{question.isRightAnswer ? 'richtig' : 'falsch'}})
+                    </li>
+                  </ol>
+                  <p>Schritt: {{step.order}}</p>
+                </ion-label>
+                <ion-reorder slot="end"></ion-reorder>
+              </ion-item>
+              <ion-item *ngIf="step.type === 'text'">
+                <ion-icon slot="start" name="document-text-outline"
+                          (click)="showActions(step.id, x,  i, step.type)"></ion-icon>
+                <ion-label (click)="showActions(step.id, x,  i, step.type)">
+                  <h3>Titel: {{step.title}}</h3>
+                  <p>Schritt: {{step.order}}</p>
+                </ion-label>
+                <ion-reorder slot="end"></ion-reorder>
+              </ion-item>
+            </div>
+          </ion-reorder-group>
+        </div>
+      </ion-accordion>
+    </ion-accordion-group>
+  </ion-list>
+
+  <div *ngIf="loaded && trainings.length === 0" style="margin-top: 50%">
+    <p class="para ion-text-center">Du hast bisher kein Training erstellt. Fange jetzt damit an!</p>
+    <ion-button expand="block" (click)="addStep('add_training', '', 0)">Training erstellen</ion-button>
+  </div>
+</ion-content>

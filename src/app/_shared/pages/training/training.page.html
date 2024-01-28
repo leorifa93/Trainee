@@ -1,0 +1,92 @@
+<ion-header [translucent]="true">
+  <ion-item style="margin-top: 2rem" lines="none" color="none">
+    <ion-icon slot="end" name="close-outline" class="ion-float-end" (click)="close()"></ion-icon>
+  </ion-item>
+  <ion-progress-bar [value]="getProgress()" buffer=".5"></ion-progress-bar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <div id="previewPlayer"></div>
+  <swiper-container style="height: 95vh" class="ion-padding" #stepSlides>
+    <swiper-slide *ngFor="let step of steps; let  i = index;" style="min-height: 95vh;">
+      <div *ngIf="step.type === 'video'">
+        <ion-card>
+          <ion-card-content style="overflow-y: scroll; height: 80vh">
+            <div class="ion-text-center title ion-padding" style="margin-bottom: 1rem">
+              <h2 style="font-size: 25px">{{step.title}}</h2>
+            </div>
+            <div>
+              <p class="para ion-text-center" style="white-space: pre-wrap">{{step.text ? step.text : ''}}</p>
+              <ion-button class="ion-margin-top" expand="block" (click)="startVideo(step.videoUrl, step, i)">Video starten
+              </ion-button>
+              <div *ngIf="step.pdfFileUrl && (isPreview || isAbsolved(step.id))">
+                <a *ngFor="let url of step.pdfFileUrl" class="ion-text-center"
+                   style="margin-top: 1rem; display: block" (click)="downloadPDF(step.title, url)">
+                  <ion-icon slot="start" name="document-text-outline"></ion-icon>
+                  PDF herunterladen</a>
+              </div>
+            </div>
+          </ion-card-content>
+          <div style="display: flex">
+            <ion-button expand="block"
+                        style="width: 100%"
+                        *ngIf="currentIndex > 0"
+                        (click)="back()">Zurück
+            </ion-button>
+            <ion-button expand="block"
+                        style="width: 100%"
+                        [disabled]="!isCompleted && !isPreview && !isAbsolved(step.id)"
+                        (click)="next()">Weiter
+            </ion-button>
+          </div>
+        </ion-card>
+      </div>
+
+      <div *ngIf="step.type === 'multiple_choice'">
+        <ion-card>
+          <ion-card-content style="overflow-y: scroll; height: 80vh; display: grid">
+            <div class="ion-text-center title ion-padding">
+              <h2 style="font-size: 25px">{{step.title}}</h2>
+            </div>
+            <div>
+              <ion-button style="text-wrap: wrap" class="ion-margin-bottom ion-text-wrap" expand="block" *ngFor="let answer of step.questions"
+                          (click)="selectAnswer($event, answer, step, i)">
+                {{answer.question}}
+              </ion-button>
+            </div>
+            <div style="display: flex">
+              <ion-button expand="block"
+                          style="width: 100%"
+                          *ngIf="currentIndex > 0"
+                          (click)="back()">Zurück
+              </ion-button>
+              <ion-button expand="block"
+                          style="width: 100%"
+                          [disabled]="!isCompleted && !isPreview && !isAbsolved(step.id)"
+                          (click)="next()">Weiter
+              </ion-button>
+            </div>
+          </ion-card-content>
+        </ion-card>
+      </div>
+
+      <div *ngIf="step.type === 'text'">
+        <div style="overflow-y: scroll; height: 80vh; display: grid; white-space: pre-wrap">
+          <h3 class="ion-text-center">{{step.title}}</h3>
+          <p class="ion-text-center" [innerHTML]="step.text! | linky"></p>
+        </div>
+        <div>
+        </div>
+        <div style="display: flex">
+          <ion-button expand="block"
+                      style="width: 100%"
+                      *ngIf="currentIndex > 0"
+                      (click)="back()">Zurück
+          </ion-button>
+          <ion-button style="width: 100%" class="ion-margin-bottom" expand="block" (click)="readDone(step, i)">Weiter</ion-button>
+        </div>
+      </div>
+    </swiper-slide>
+  </swiper-container>
+</ion-content>
+

@@ -1,0 +1,50 @@
+<ion-content class="ion-padding" [fullscreen]="true">
+  <ion-refresher slot="fixed" (ionRefresh)="getUsers($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+  <h1>Anfragen</h1>
+
+  <ion-list class="ion-margin-top">
+    <ion-item *ngFor="let user of users; let i = index" class="ion-no-padding">
+      <h3>{{user.fullName}}</h3>
+      <p>TP-Nummer: {{user.tpNumber}}</p>
+      <ion-buttons slot="end">
+        <ion-button color="success" (click)="setStatus(user, 1, i)">
+          <ion-icon name="checkmark-outline"></ion-icon>
+        </ion-button>
+        <ion-button color="danger" (click)="setStatus(user, 3, i)">
+          <ion-icon name="close-outline"></ion-icon>
+        </ion-button>
+      </ion-buttons>
+    </ion-item>
+  </ion-list>
+
+  <ion-list *ngIf="!loaded">
+    <ion-item class="ion-no-padding">
+      <h3>
+        <ion-skeleton-text [animated]="true" style="width: 100px"></ion-skeleton-text>
+      </h3>
+      <p>
+        <ion-skeleton-text [animated]="true" style="width: 200px"></ion-skeleton-text>
+      </p>
+    </ion-item>
+    <ion-item class="ion-no-padding">
+      <h3>
+        <ion-skeleton-text [animated]="true" style="width: 100px"></ion-skeleton-text>
+      </h3>
+      <p>
+        <ion-skeleton-text [animated]="true" style="width: 200px"></ion-skeleton-text>
+      </p>
+    </ion-item>
+    <ion-item class="ion-no-padding">
+      <h3>
+        <ion-skeleton-text [animated]="true" style="width: 100px"></ion-skeleton-text>
+      </h3>
+      <p>
+        <ion-skeleton-text [animated]="true" style="width: 200px"></ion-skeleton-text>
+      </p>
+    </ion-item>
+  </ion-list>
+
+  <p class="para ion-text-center" *ngIf="loaded && users.length === 0" style="margin-top: 50%">Du hast keine Anfragen bisher</p>
+</ion-content>
